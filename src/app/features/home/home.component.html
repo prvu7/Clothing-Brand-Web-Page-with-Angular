@@ -1,0 +1,218 @@
+<header class="header">
+    <div class="header-promo">
+        <div class="header-promo-text">15% OFF - CODE'FLASHSALE'</div>
+    </div>
+
+    <div class="header-menu">
+        <div class="header-logo">
+            <img src="assets/images/logo/logo-transparent.png" alt="Logo Not Displayed" class="header-logo-image">
+        </div>
+
+        <div class="menu">
+            <ul class="menu-list">
+                <li class="menu-item"><a routerLink="/about">ABOUT US</a></li>
+                <li class="menu-item"><a href="#best-sellers">BEST SELLERS</a></li>
+                <li class="menu-item"><a href="#new-releases">NEW REALEASES</a></li>
+                <li class="menu-item"><a href="#jeans">JEANS</a></li>
+                <li class="menu-item"><a href="#tops">TOPS</a></li>
+                <li class="menu-item"><a href="#footer">CONTACT</a></li>
+            </ul>
+        </div>
+
+        <div class="header-search">
+            <a href="#search" class="header-search-link" (click)="toggleSearch()">
+                <img src="assets/images/logo/icons8-search-30.png" alt="Search Icon Not Displayed" class="header-search-icon">
+            </a>
+        </div>
+
+        <div class="header-cart">
+          <a routerLink="/cart" class="header-cart-link">
+              <img src="assets/images/logo/icons8-shopping-bag-32.png" alt="Cart Icon Not Displayed" class="header-cart-icon">
+          </a>
+        </div>
+
+        <!-- Search Frame (Initially Hidden) -->
+        <div class="search-frame" *ngIf="isSearchVisible">
+          <div class="search-header">
+            <input type="text" placeholder="Search clothes..." [(ngModel)]="searchQuery" (ngModelChange)="filterClothes()">
+            <button class="close-button" (click)="toggleSearch()">X</button>
+          </div>
+        
+          <div class="search-results" *ngIf="filteredClothes.length > 0">
+            <div class="search-item" *ngFor="let item of filteredClothes">
+              <img [src]="item.imageUrl" alt="{{ item.name }}">
+              <div class="search-item-info">
+                <h3>{{ item.name }}</h3>
+                <p>${{ item.price }}</p>
+                <button (click)="addToCart(item)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>        
+
+      </div>
+
+</header>
+
+<div class="main-content">
+    <div class="preview-image">
+        <img src="assets/images/content/flash_sale_desktop_banner_repstud.jpg" alt="Flash Sale Banner Not Displayed" class="preview-image-desktop">
+        <button class="preview-image-button" onclick="document.getElementById('best-sellers').scrollIntoView({behavior: 'smooth'})">SHOP NOW</button>
+    </div>
+
+  <div class="best-sellers" id="best-sellers">
+    <h1>SHOP BEST SELLERS</h1>
+    <div class="best-sellers-list">
+      <div class="product-card" *ngFor="let item of bestSellers">
+        <img [src]="item.imageUrl" alt="{{ item.name }}" class="product-card-image">
+        <div class="product-card-details">
+          <p class="product-card-name">{{ item.name }}</p>
+          <div class="product-card-purchase">
+            <p class="product-card-price">${{ item.price }}</p>
+            <div class="product-quantity-add-cart">
+              <div class="quantity-input">
+                <label for="qty-{{ item.id }}">QTY:</label>
+                <input id="qty-{{ item.id }}" type="number" min="1"
+                      [(ngModel)]="quantityByProduct[item.id]"
+                      (ngModelChange)="onQuantityChange(item.id, $event)">
+              </div>
+              <div class="product-card-purchase">
+                <button class="product-card-button" (click)="addToCart(item)">ADD TO CART</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="horizontal-line" style="border-top: 1px solid black; margin-top: 50px; margin-bottom: 50px;"></div>
+
+  <div class="content-images">
+      <img src="assets/images/content/content-image1.png" alt="Content Image 1 Not Displayed" class="content-image">
+      <img src="assets/images/content/content-image2.png" alt="Content Image 2 Not Displayed" class="content-image">
+      <img src="assets/images/content/content-image3.png" alt="Content Image 3 Not Displayed" class="content-image">
+  </div>
+
+  <div class="horizontal-line" style="border-top: 1px solid black; margin-top: 50px; margin-bottom: 25px;"></div>
+
+    <div class="new-releases" id="new-releases">
+      <h1>SHOP NEW RELEASES</h1>
+      <div class="new-arrivals-list">
+        <div class="product-card" *ngFor="let item of newReleases">
+          <img [src]="item.imageUrl" alt="{{ item.name }}" class="product-card-image">
+          <div class="product-card-details">
+            <p class="product-card-name">{{ item.name }}</p>
+            <div class="product-card-purchase">
+              <p class="product-card-price">${{ item.price }}</p>
+              <div class="product-quantity-add-cart">
+                <div class="quantity-input">
+                  <label for="qty-{{ item.id }}">QTY:</label>
+                  <input id="qty-{{ item.id }}" type="number" min="1"
+                        [(ngModel)]="quantityByProduct[item.id]"
+                        (ngModelChange)="onQuantityChange(item.id, $event)">
+                </div>
+                <div class="product-card-purchase">
+                  <button class="product-card-button" (click)="addToCart(item)">ADD TO CART</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="horizontal-line" style="border-top: 1px solid black; margin-top: 50px; margin-bottom: 30px;"></div>
+
+      <div class="jeans" id="jeans">
+        <h1>SHOP JEANS</h1>
+        <div class="jeans-list">
+          <div class="product-card" *ngFor="let item of jeans">
+            <img [src]="item.imageUrl" alt="{{ item.name }}" class="product-card-image">
+            <div class="product-card-details">
+              <p class="product-card-name">{{ item.name }}</p>
+              <div class="product-card-purchase">
+                <p class="product-card-price">${{ item.price }}</p>
+                <div class="product-quantity-add-cart">
+                  <div class="quantity-input">
+                    <label for="qty-{{ item.id }}">QTY:</label>
+                    <input id="qty-{{ item.id }}" type="number" min="1"
+                          [(ngModel)]="quantityByProduct[item.id]"
+                          (ngModelChange)="onQuantityChange(item.id, $event)">
+                  </div>
+                  <div class="product-card-purchase">
+                    <button class="product-card-button" (click)="addToCart(item)">ADD TO CART</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="horizontal-line" style="border-top: 1px solid black; margin-top: 50px; margin-bottom: 30px;"></div>
+
+      <div class="tops" id="tops">
+        <h1>SHOP TOPS</h1>
+        <div class="tops-list">
+          <div class="product-card" *ngFor="let item of tops">
+            <img [src]="item.imageUrl" alt="{{ item.name }}" class="product-card-image">
+            <div class="product-card-details">
+              <p class="product-card-name">{{ item.name }}</p>
+              <div class="product-card-purchase">
+                <p class="product-card-price">${{ item.price }}</p>
+                <div class="product-quantity-add-cart">
+                  <div class="quantity-input">
+                    <label for="qty-{{ item.id }}">QTY:</label>
+                    <input id="qty-{{ item.id }}" type="number" min="1"
+                          [(ngModel)]="quantityByProduct[item.id]"
+                          (ngModelChange)="onQuantityChange(item.id, $event)">
+                  </div>
+                  <div class="product-card-purchase">
+                    <button class="product-card-button" (click)="addToCart(item)">ADD TO CART</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>
+
+<div *ngIf="cartNotification" class="cart-notification">
+  {{ cartNotification }}
+</div>
+
+<footer class="footer" id="footer">
+    <div class="footer-content">
+        <div class="footer-rights">
+            <p>© 2025 ART NOT CLOTHES GALLERY. ALL RIGHT RESERVED.</p>
+            <p>By circumventing traditional channels, designing<br>in-house and engaging with customers directly,<br>we're able to provide high quality, trend right<br>garments at a fraction of the going price.</p>
+            <p>help&#64;artnotclothes-gallery.com</p>
+        </div>
+
+        <div class="footer-services">
+            <p>CUSTOMER SERVICE</p>
+
+            <ul class="footer-services-list">
+                <li class="footer-services-item"><a href="#">TERMS & CONDITIONS</a></li>
+                <li class="footer-services-item"><a href="#">SHIPPING & RETURNS</a></li>
+                <li class="footer-services-item"><a href="#">PRIVACY POLICY</a></li>
+                <li class="footer-services-item"><a href="#">CONTACT US</a></li>
+            </ul>
+
+        </div>
+
+        <div class="footer-socials">
+            <p>JOIN US</p>
+            <ul class="footer-socials-list">
+                <li class="footer-socials-item"><a href="https://www.linkedin.com/in/george-p%C3%AErvu-87241829a/" target="_blank">LINKEDIN</a></li>
+                <li class="footer-socials-item"><a href="https://github.com/prvu7" target="_blank">GITHUB</a></li>
+                <li class="footer-socials-item"><a href="https://www.instagram.com/george.pirvuu/" target="_blank">INSTAGRAM</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</footer>

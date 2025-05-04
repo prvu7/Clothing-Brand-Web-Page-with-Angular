@@ -1,0 +1,38 @@
+<div class="cart-container">
+  <h2>YOUR CART</h2>
+  
+  <div class="cart-content">
+    <div class="cart-items">
+      <ng-container *ngIf="(cartItems$ | async) as cartItems; else emptyCart">
+        <div class="cart-item" *ngFor="let item of cartItems">
+          <img [src]="item.product.imageUrl" alt="{{ item.product.name }}" class="cart-item-image">
+          <div class="cart-item-details">
+            <h3>{{ item.product.name }}</h3>
+            <p>PRICE: ${{ item.product.price }}</p>
+            <p>QUANTITY: {{ item.quantity }}</p>
+          </div>
+          <button class="remove-button" (click)="removeItem(item.product.id)">x</button>
+        </div>
+        <div class="cart-total">
+          <h3>TOTAL: ${{ getTotal(cartItems) | number:'1.2-2' }}</h3>
+        </div>
+      </ng-container>
+      <ng-template #emptyCart>
+        <p>YOUR CART IS EMPTY.</p>
+      </ng-template>
+    </div>
+    
+    <div class="cart-summary">
+      <div class="discount-section">
+        <label for="discount">DISCOUNT CODE:</label>
+        <input id="discount" type="text" [(ngModel)]="discountCode">
+        <button class="apply-discount" (click)="applyDiscount()">Apply</button>
+      </div>
+      <button class="pay-button" (click)="pay()">Pay</button>
+    </div>
+  </div>
+  
+  <div *ngIf="paymentNotification" class="notification">
+    {{ paymentNotification }}
+  </div>
+</div>
