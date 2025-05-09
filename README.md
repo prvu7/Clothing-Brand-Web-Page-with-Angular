@@ -17,6 +17,9 @@ ng serve
 Once the server is running, open your browser and navigate to `http://localhost:4200/`.
 
 ## Screenshots
-![home]()
-![best-sellers]()
-![cart]()
+### Home-Page
+![home](https://github.com/prvu7/Clothing-Brand-Web-Page-with-Angular/blob/main/src/assets/images/screenshot1.png)
+### Best-Sellers
+![best-sellers](https://github.com/prvu7/Clothing-Brand-Web-Page-with-Angular/blob/main/src/assets/images/screenshot2.png)
+### Cart
+![cart](https://github.com/prvu7/Clothing-Brand-Web-Page-with-Angular/blob/main/src/assets/images/screenshot3.png)
